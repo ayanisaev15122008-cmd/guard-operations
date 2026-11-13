@@ -22,7 +22,7 @@ function displayIncidents(){
  }).join("")||'<tr><td colspan="6">Заявок по выбранному фильтру нет</td></tr>';
 }
 function displayEvents(){
- $("#eventLog").innerHTML=state.events.map(e=>'<li><time>'+escapeHTML(new Date(e.createdAt).toLocaleString("ru-RU"))+' · '+escapeHTML(e.cameraId)+'</time><b class="'+escapeHTML(e.severity)+'">'+escapeHTML(e.type)+'</b><p>'+escapeHTML(e.message)+'</p></li>').join("")||'<li>Пока нет событий</li>';
+ $("#eventLog").innerHTML=state.events.filter(x=>!$("#eventType").value||x.type===$("#eventType").value).map(e=>'<li><time>'+escapeHTML(new Date(e.createdAt).toLocaleString("ru-RU"))+' · '+escapeHTML(e.cameraId)+'</time><b class="'+escapeHTML(e.severity)+'">'+escapeHTML(e.type)+'</b><p>'+escapeHTML(e.message)+'</p></li>').join("")||'<li>Пока нет событий</li>';
 }
 async function reload(){
  const [c,i,e,m]=await Promise.all([request("/api/cameras"),request("/api/incidents"),request("/api/events"),request("/api/overview")]);
@@ -41,7 +41,7 @@ function openForm(mode){
  $("#formDialog").showModal();
 }
 $("#refresh").addEventListener("click",()=>reload().then(()=>toast("Данные обновлены")).catch(e=>toast(e.message,true)));
-$("#status").addEventListener("change",displayIncidents);
+$("#status").addEventListener("change",displayIncidents);$("#eventType").addEventListener("change",displayEvents);
 $("#newIncident").addEventListener("click",()=>openForm("incident"));
 $("#newEvent").addEventListener("click",()=>openForm("event"));
 $("#closeDialog").addEventListener("click",()=>$("#formDialog").close());
