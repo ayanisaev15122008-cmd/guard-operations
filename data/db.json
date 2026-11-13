@@ -1,0 +1,82 @@
+{
+  "cameras": [
+    {
+      "id": "P-01",
+      "name": "Главный вход",
+      "location": "Корпус А · входная группа",
+      "status": "online",
+      "previewUrl": ""
+    },
+    {
+      "id": "P-02",
+      "name": "Серверная",
+      "location": "Корпус А · 2 этаж",
+      "status": "online",
+      "previewUrl": ""
+    },
+    {
+      "id": "P-03",
+      "name": "Внутренний двор",
+      "location": "Двор колледжа",
+      "status": "offline",
+      "previewUrl": ""
+    },
+    {
+      "id": "P-04",
+      "name": "Проходная",
+      "location": "Вахта",
+      "status": "online",
+      "previewUrl": ""
+    }
+  ],
+  "events": [
+    {
+      "id": 101,
+      "cameraId": "P-03",
+      "type": "camera_offline",
+      "severity": "high",
+      "message": "Потеря связи с камерой двора",
+      "createdAt": "2026-11-13T08:15:00.000Z"
+    },
+    {
+      "id": 102,
+      "cameraId": "P-01",
+      "type": "motion",
+      "severity": "medium",
+      "message": "Движение в зоне входа",
+      "createdAt": "2026-11-13T08:17:00.000Z"
+    },
+    {
+      "id": 103,
+      "type": "door_open",
+      "cameraId": "P-02",
+      "severity": "high",
+      "message": "Тест: открытие двери серверной",
+      "createdAt": "2026-11-13T12:18:48.972Z"
+    }
+  ],
+  "incidents": [
+    {
+      "id": 501,
+      "title": "Нет видеосигнала со двора",
+      "cameraId": "P-03",
+      "severity": "high",
+      "description": "Требуется проверить канал связи",
+      "status": "new",
+      "assignee": "",
+      "createdAt": "2026-11-13T08:20:00.000Z",
+      "updatedAt": "2026-11-13T08:20:00.000Z"
+    },
+    {
+      "id": 502,
+      "title": "Дежурный осмотр входа",
+      "cameraId": "P-01",
+      "severity": "medium",
+      "description": "Проверка карточки инцидента через веб-интерфейс",
+      "status": "in_progress",
+      "assignee": "Оператор смены",
+      "createdAt": "2026-11-13T12:18:47.985Z",
+      "updatedAt": "2026-11-13T12:18:48.450Z"
+    }
+  ]
+}
