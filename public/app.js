@@ -12,7 +12,7 @@ async function request(url,method="GET",body){
 }
 function toast(text,error=false){const n=$("#notice");n.textContent=text;n.style.background=error?"#9b4638":"#1d464f";n.style.display="block";clearTimeout(window.hideNote);window.hideNote=setTimeout(()=>n.style.display="none",3100);}
 function displayCameras(){
- $("#cameraRows").innerHTML=state.cameras.map(x=>'<tr><td><b>'+escapeHTML(x.id)+'</b></td><td>'+escapeHTML(x.name)+'</td><td>'+escapeHTML(x.location)+'</td><td><span class="status '+escapeHTML(x.status)+'">'+escapeHTML(human[x.status])+'</span></td><td><button type="button" class="secondary" data-camera="'+escapeHTML(x.id)+'" data-status="'+(x.status==="online"?"offline":"online")+'">Сменить статус</button></td></tr>').join("");
+ $("#cameraRows").innerHTML=state.cameras.filter(x=>!$("#cameraFilter").value||x.status===$("#cameraFilter").value).map(x=>'<tr><td><b>'+escapeHTML(x.id)+'</b></td><td>'+escapeHTML(x.name)+'</td><td>'+escapeHTML(x.location)+'</td><td><span class="status '+escapeHTML(x.status)+'">'+escapeHTML(human[x.status])+'</span></td><td><button type="button" class="secondary" data-camera="'+escapeHTML(x.id)+'" data-status="'+(x.status==="online"?"offline":"online")+'">Сменить статус</button></td></tr>').join("");
 }
 function displayIncidents(){
  const filter=$("#status").value,arr=state.incidents.filter(x=>!filter||x.status===filter);
@@ -41,7 +41,7 @@ function openForm(mode){
  $("#formDialog").showModal();
 }
 $("#refresh").addEventListener("click",()=>reload().then(()=>toast("Данные обновлены")).catch(e=>toast(e.message,true)));
-$("#status").addEventListener("change",displayIncidents);$("#eventType").addEventListener("change",displayEvents);
+$("#cameraFilter").addEventListener("change",displayCameras);$("#status").addEventListener("change",displayIncidents);$("#eventType").addEventListener("change",displayEvents);
 $("#newIncident").addEventListener("click",()=>openForm("incident"));
 $("#newEvent").addEventListener("click",()=>openForm("event"));
 $("#closeDialog").addEventListener("click",()=>$("#formDialog").close());
